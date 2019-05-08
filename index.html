@@ -15,6 +15,12 @@
         Obtener Personajes
     </button>
 
+    <div id="resultados">
+
+    </div>
+
+
+
     <!-- Optional JavaScript -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
@@ -36,12 +42,28 @@
             axios.get(url)
             .then(function (response) {
                 // Se ejecuta si la consulta es exitosa
-                console.log(response);
+                console.log(response.data.data.results);
+                imprimirPersonajes(response.data.data.results);
             })
             .catch(function (error) {
                 // Se ejecuta si la consulta es erronea
                 console.log(error);
             });
+        }
+
+        function imprimirPersonajes(arregloPersonajes){
+            htmlFinal="";
+
+            for(var i = 0; i<arregloPersonajes.length;i++){
+                //console.log(arregloPersonajes[i].name);
+                htmlFinal=htmlFinal+'<div class="row">';
+                htmlFinal+='<div class="col">';
+                htmlFinal+='<img src="'+arregloPersonajes[i].thumbnail.path+'.'+arregloPersonajes[i].thumbnail.extension+'">';
+                htmlFinal+= '</div></div>';
+
+            }
+            document.getElementById("resultados").innerHTML=htmlFinal;
+
         }
         
     </script>
